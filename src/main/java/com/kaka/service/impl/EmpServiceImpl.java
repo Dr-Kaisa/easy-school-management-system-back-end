@@ -6,7 +6,7 @@ import com.kaka.pojo.DO.Emp;
 import com.kaka.pojo.DO.EmpExpr;
 import com.kaka.pojo.DO.EmpLog;
 import com.kaka.pojo.DTO.EmpPageParm;
-import com.kaka.pojo.VO.PageResult;
+import com.kaka.pojo.VO.EmpPageResult;
 import com.kaka.mapper.EmpExprMapper;
 import com.kaka.mapper.EmpMapper;
 import com.kaka.service.EmpLogService;
@@ -30,7 +30,7 @@ public class EmpServiceImpl implements EmpService {
     @Autowired
     EmpLogService empLogService;
     @Override
-    public PageResult<Emp> page(EmpPageParm parm) {
+    public EmpPageResult<Emp> page(EmpPageParm parm) {
 //        Long total = empMapper.count();
 //        Integer start = (pageNum-1)*pageSize;
 //        List< Emp> rows =empMapper.list(start, pageSize);
@@ -38,8 +38,8 @@ public class EmpServiceImpl implements EmpService {
         //执行查询，PageHelper对其进行了处理
         List<Emp> empList = empMapper.list(parm);
         //解析并封装
-        Page page=(Page) empList;
-        return new PageResult<>(page.getTotal(), page.getResult());
+        Page page=(Page<Emp>) empList;
+        return new EmpPageResult<Emp>(page.getTotal(), page.getResult());
     }
 
     @Override

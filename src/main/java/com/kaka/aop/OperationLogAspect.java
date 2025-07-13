@@ -1,9 +1,8 @@
 package com.kaka.aop;
 
 import com.kaka.Utils.CurrentHolder;
-import com.kaka.anno.OperationLog;
 import com.kaka.mapper.OperationLogMapper;
-import com.kaka.pojo.DO.OperateLog;
+import com.kaka.pojo.DTO.OperateLogSelectResult;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -32,17 +31,17 @@ public class OperationLogAspect {
         long costTime = endTime - startTime;
 
         // 构建日志对象
-        OperateLog operateLog = new OperateLog();
-        operateLog.setOperateEmpId(CurrentHolder.getCurrentId());
-        operateLog.setOperateTime(LocalDateTime.now());
-        operateLog.setClassName(joinPoint.getTarget().getClass().getName());
-        operateLog.setMethodName(joinPoint.getSignature().getName());
-        operateLog.setMethodParams(Arrays.toString(joinPoint.getArgs()));
-        operateLog.setReturnValue(result.toString());
-        operateLog.setCostTime(costTime);
-        log.info("日志对象为:{}", operateLog);
+        OperateLogSelectResult operateLogSelectResult = new OperateLogSelectResult();
+        operateLogSelectResult.setOperateEmpId(CurrentHolder.getCurrentId());
+        operateLogSelectResult.setOperateTime(LocalDateTime.now());
+        operateLogSelectResult.setClassName(joinPoint.getTarget().getClass().getName());
+        operateLogSelectResult.setMethodName(joinPoint.getSignature().getName());
+        operateLogSelectResult.setMethodParams(Arrays.toString(joinPoint.getArgs()));
+        operateLogSelectResult.setReturnValue(result.toString());
+        operateLogSelectResult.setCostTime(costTime);
+        log.info("日志对象为:{}", operateLogSelectResult);
         // 插入日志
-        operationLogMapper.insert(operateLog);
+        operationLogMapper.insert(operateLogSelectResult);
         return result;
     }
 }

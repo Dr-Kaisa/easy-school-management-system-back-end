@@ -3,7 +3,7 @@ package com.kaka.controller;
 import com.kaka.pojo.DO.Emp;
 import com.kaka.pojo.DO.Result;
 import com.kaka.pojo.DTO.EmpPageParm;
-import com.kaka.pojo.VO.PageResult;
+import com.kaka.pojo.VO.EmpPageResult;
 import com.kaka.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class EmpController {
 //        log.info("分页查询");
 //        log.info("分页查询");
         log.info("嗨嗨嗨——————name:{},gender:{},begin:{},end:{},pageNum:{},pageSize:{}", parm);
-        PageResult<Emp> pageResult = empService.page(parm);
-        return Result.success(pageResult);
+        EmpPageResult<Emp> empPageResult = empService.page(parm);
+        return Result.success(empPageResult);
     }
     //添加员工
     @PostMapping
