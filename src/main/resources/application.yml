@@ -29,6 +29,10 @@ logging:
 aliyun:
   oss:
     endpoint: https://oss-cn-beijing.aliyuncs.com
-    bucketName: java1816087
-    region: cn-beijing
+    bucketName: xxx     #bucket名称
+    region: cn-beijing  #地域
 
+#JWT
+jwt:
+  key: SVRIRUlNQQ==     # 密钥
+  expire: 43200000      # 令牌过期时间（单位：毫秒）
