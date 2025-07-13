@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaka.mapper.EmpMapper">
+    <update id="update">
+        update emp
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--    通过id批量删除员工信息-->
+    <delete id="deleteById">
+        delete from emp where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <!--查询全部员工信息-->
+    <select id="list" resultType="com.kaka.pojo.DO.Emp">
+        select e.*, d.name dept_name
+        from emp e
+        left join dept d on e.dept_id = d.id
+        <where>
+            <if test="name != null and name != ''">
+                e.name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                and e.gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                and e.entry_date between #{begin} and #{end}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+
+    <!--    通过id查询员工信息-->
+    <select id="getById" resultMap="empResultMap">
+
+        select e.*,
+               ee.id ee_id,
+               ee.begin ee_begin,
+               ee.end ee_end,
+               ee.company ee_company,
+               ee.job ee_job,
+               ee.emp_id ee_emp_id
+        from emp e
+                 left join emp_expr ee on e.id = ee.emp_id
+        where e.id = #{id}
+    </select>
+    <!--    手动封装-->
+    <!--    <id>表示主键列，MyBatis 会特殊对待，如用于缓存、延迟加载-->
+    <!--    <result>表示普通字段映射，主键之外的其他字段-->
+    <resultMap id="empResultMap" type="com.kaka.pojo.DO.Emp">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="salary" column="salary"/>
+        <result property="image" column="image"/>
+        <result property="entryDate" column="entry_date"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="exprList" ofType="com.kaka.pojo.DO.EmpExpr">
+                <id property="id" column="ee_id"/>
+                <result property="begin" column="ee_begin"/>
+                <result property="end" column="ee_end"/>
+                <result property="company" column="ee_company"/>
+                <result property="job" column="ee_job"/>
+                <result property="empId" column="ee_emp_id"/>
+        </collection>
+    </resultMap>
+
+
+</mapper>

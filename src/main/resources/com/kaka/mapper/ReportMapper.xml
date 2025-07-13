@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaka.mapper.ReportMapper">
+
+
+    <select id="getCountList" resultType="com.kaka.pojo.DTO.JobCountDTO">
+        select CASE
+                   WHEN emp.job = 1 THEN '班主任'
+                   WHEN emp.job = 2 THEN '讲师'
+                   WHEN emp.job = 3 THEN '学工主管'
+                   WHEN emp.job = 4 THEN '教研主管'
+                   WHEN emp.job = 5 THEN '咨询师'
+                   WHEN emp.job = 5 THEN '咨询师'
+                   ELSE '其他职位'
+                   END  AS job_name,
+               count(*) AS job_count
+        from emp
+        group by emp.job
+        order by count(*)
+    </select>
+    <select id="getGenderCount" resultType="com.kaka.pojo.VO.GenderCountVO">
+        select if(gender = 1, '男性员工', if(gender = 2, '女性员工', '不详')) AS name,
+               count(*)                                                       AS value
+        from emp
+        group by emp.gender
+        order by count(*)
+    </select>
+
+
+</mapper>

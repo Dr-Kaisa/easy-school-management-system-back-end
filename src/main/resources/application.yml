@@ -1,0 +1,34 @@
+# 应用配置
+spring:
+  application:
+    name: management
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/study
+    username: root
+    password: 181686
+
+
+# 服务端口
+server:
+  port: 8080
+
+# mybatis 配置
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql执行日志
+    map-underscore-to-camel-case: true  # 开启驼峰命名
+
+#单独配置事务管理日志级别
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+#阿里云OSS
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucketName: java1816087
+    region: cn-beijing
+
