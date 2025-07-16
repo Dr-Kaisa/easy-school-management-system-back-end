@@ -4,6 +4,11 @@
 
 前端项目地址：[Dr-Kaisa/easy-school-management-system-front-end](https://github.com/Dr-Kaisa/easy-school-management-system-front-end)
 
+### 项目demo
+用户名可选shinaian、songjiang，密码都是123456
+
+click -> [demo](http://101.132.184.148/login)
+
 运行环境包括：
 
 - mysql8.0
