@@ -2,7 +2,7 @@
 
 该项目是基于springboot3.4.7和vue3打造教学管理系统
 
-前端项目地址：[Dr-Kaisa/easy-school-management-system-front-end](https://github.com/Dr-Kaisa/easy-school-management-system-front-end)
+前端项目源码可参考：[Dr-Kaisa/easy-school-management-system-front-end](https://github.com/Dr-Kaisa/easy-school-management-system-front-end)
 
 ### 项目demo
 用户名可选shinaian、songjiang，密码都是123456
